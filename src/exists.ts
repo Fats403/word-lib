@@ -1,9 +1,8 @@
-const defaultLanguage: string = "en";
-const dictionary = require(`./dictionaries/${defaultLanguage}/${defaultLanguage}.json`);
+const dictionary = require("./dictionary");
 
 module.exports = (text: string): boolean => {
   if (typeof text !== "string") {
-    throw new TypeError("Text must be a string.");
+    throw new TypeError("Text must be of type string.");
   }
 
   const cleanedText = text.trim().toLowerCase();
@@ -20,3 +19,5 @@ module.exports = (text: string): boolean => {
 
   return Boolean(wordPrefixGroup?.includes(cleanedText));
 };
+
+export {};

@@ -1,4 +1,4 @@
-const checkWordExists = require("../checkWordExists");
+const checkWordExists = require("../exists");
 
 test("Expect whitespace and non-valid words to return false", () => {
   expect(checkWordExists("")).toBe(false);
@@ -16,7 +16,7 @@ test("Expect real words to be true (including words with whitespace)", () => {
 });
 
 test("Expect it will throw an error if a non-string primitive is inputted", () => {
-  const testError = (param: any) => {
+  const testError = (param: any): void => {
     try {
       checkWordExists(param);
     } catch (err) {
