@@ -1,7 +1,7 @@
 {
   "name": "word-lib",
-  "version": "1.0.0",
-  "description": "Check if a word exists in English, retrieve a random word, or retrieve groups of words by the first two letters.",
+  "version": "1.0.1",
+  "description": "Check if a word exists in English, or retrieve a random word.",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
