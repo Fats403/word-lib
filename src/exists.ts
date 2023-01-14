@@ -1,6 +1,6 @@
-const dictionary = require("./dictionary");
+import { dictionary } from "./dictionary";
 
-module.exports = (text: string): boolean => {
+const exists = (text: string): boolean => {
   if (typeof text !== "string") {
     throw new TypeError("Text must be of type string.");
   }
@@ -20,4 +20,4 @@ module.exports = (text: string): boolean => {
   return Boolean(wordPrefixGroup?.includes(cleanedText));
 };
 
-export {};
+export { exists };

@@ -1,4 +1,4 @@
-const dictionary = require("./dictionary");
+import { dictionary } from "./dictionary";
 
 const random = (maxLength?: number): string => {
   if (maxLength) {
@@ -52,5 +52,4 @@ function shuffle(array: any[]) {
   return array;
 }
 
-module.exports = random;
-export {};
+export { random };

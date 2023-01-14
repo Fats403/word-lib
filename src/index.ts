@@ -1,5 +1,4 @@
-const exists = require("./exists");
-const random = require("./random");
+import { exists } from "./exists";
+import { random } from "./random";
 
-module.exports = { exists, random };
-export {};
+export { exists, random };

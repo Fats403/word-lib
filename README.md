@@ -1,6 +1,6 @@
 # word-lib <!-- omit in toc -->
 
-> word-lib is type-safe word library base off of [@Brandons42's](https://github.com/Brandons42) [word-exists](https://github.com/Brandons42/word-exists). It can check if a word exists in english or return a random word from the dictionary.
+> word-lib is type-safe word library based off of [@Brandons42's](https://github.com/Brandons42) [word-exists](https://github.com/Brandons42/word-exists). It can check if a word exists in english or return a random word from the dictionary.
 
 ## Table of contents <!-- omit in toc -->
 

@@ -1,4 +1,4 @@
-const random = require("../random");
+import { random } from "../random";
 
 const testTypeError = (max?: any): void => {
   try {
@@ -35,5 +35,3 @@ test("Expect non-numbers to throw a type error", () => {
   testTypeError(false);
   testTypeError(undefined);
 });
-
-export {};
