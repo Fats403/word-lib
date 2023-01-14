@@ -1,6 +1,6 @@
 {
   "name": "word-lib",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Check if a word exists in English, or retrieve a random word.",
   "main": "src/index.ts",
   "scripts": {
