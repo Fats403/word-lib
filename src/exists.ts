@@ -1,11 +1,11 @@
-import { dictionary } from "./dictionary";
+import { getDictionary, IDictionary } from "./dictionary";
 
 const exists = (text: string): boolean => {
   if (typeof text !== "string") {
     throw new TypeError("Text must be of type string.");
   }
 
-  const cleanedText = text.trim().toLowerCase();
+  const cleanedText: string = text.trim().toLowerCase();
 
   if (cleanedText.length === 0) {
     return false;
@@ -15,7 +15,8 @@ const exists = (text: string): boolean => {
     return cleanedText === "i" || cleanedText === "a";
   }
 
-  const wordPrefixGroup = dictionary[cleanedText.slice(0, 2)];
+  const dictionary: IDictionary = getDictionary();
+  const wordPrefixGroup: string[] = dictionary[cleanedText.slice(0, 2)];
 
   return Boolean(wordPrefixGroup?.includes(cleanedText));
 };

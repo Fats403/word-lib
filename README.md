@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [License](#license)
 - [Contribute](#contribute)
+  - [Adding a new language](#adding-a-new-language)
 
 ## Install
 
@@ -44,6 +45,14 @@ wordLib.random(); // any possible word
 wordLib.random(5); // generate a random word with a max length of 5
 ```
 
+Change current language, defaults to english (`en`). No other languages are currently supported.
+
+```ts
+import wordLib from "word-lib";
+
+wordLib.setLanguage("en"); // set current language to english
+```
+
 ## License
 
 Licensed under
@@ -53,3 +62,7 @@ Licensed under
 ## Contribute
 
 Any PR's for missing words or other language support are always welcome.
+
+### Adding a new language
+
+To add a new language create a new folder within the `/src/dictionary` directory as the name of the language in [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) format. Then add the language json file under that directory as `${languageCode}.json`. Then add the language code to the `allowedLanguages` to enable it. Look at the `en` example for reference.

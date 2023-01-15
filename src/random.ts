@@ -1,4 +1,4 @@
-import { dictionary } from "./dictionary";
+import { getDictionary, IDictionary } from "./dictionary";
 
 export const random = (maxLength?: number): string => {
   if (maxLength) {
@@ -14,12 +14,14 @@ export const random = (maxLength?: number): string => {
   }
 
   let _word: string = "";
-  const shuffledWordSet = shuffle(Object.values(dictionary));
+
+  const dictionary: IDictionary = getDictionary();
+  const shuffledWordSet: string[][] = shuffle(Object.values(dictionary));
 
   exit_loop: for (let i = 0; i < shuffledWordSet.length; i++) {
-    const set = shuffle(shuffledWordSet[i]);
+    const set: string[] = shuffle(shuffledWordSet[i]);
     for (let j = 0; j < set.length; j++) {
-      const word = set[j];
+      const word: string = set[j];
       if (word.length >= 3) {
         if (!maxLength || (maxLength && word.length <= maxLength)) {
           _word = word;
