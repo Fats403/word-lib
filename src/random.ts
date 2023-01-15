@@ -1,6 +1,6 @@
 import { dictionary } from "./dictionary";
 
-const random = (maxLength?: number): string => {
+export const random = (maxLength?: number): string => {
   if (maxLength) {
     if (typeof maxLength !== "number") {
       throw new TypeError("Max length must be of type string.");
@@ -16,14 +16,14 @@ const random = (maxLength?: number): string => {
   let _word: string = "";
   const shuffledWordSet = shuffle(Object.values(dictionary));
 
-  exit_loops: for (let i = 0; i < shuffledWordSet.length; i++) {
+  exit_loop: for (let i = 0; i < shuffledWordSet.length; i++) {
     const set = shuffle(shuffledWordSet[i]);
     for (let j = 0; j < set.length; j++) {
       const word = set[j];
       if (word.length >= 3) {
         if (!maxLength || (maxLength && word.length <= maxLength)) {
           _word = word;
-          break exit_loops;
+          break exit_loop;
         }
       }
     }
@@ -51,5 +51,3 @@ function shuffle(array: any[]) {
 
   return array;
 }
-
-export { random };
