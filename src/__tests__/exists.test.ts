@@ -15,6 +15,16 @@ test("Expect real words to be true (including words with whitespace)", () => {
   expect(exists("  space  ")).toBe(true);
 });
 
+test("Expect it to return false if text is a single character and allowOneLetterWords is false", () => {
+  expect(exists("a")).toBe(false);
+  expect(exists("i")).toBe(false);
+});
+
+test("Expect it to return true if text is 'i' or 'a' and allowOneLetterWords is true", () => {
+  expect(exists("i", { allowOneLetterWords: true })).toBe(true);
+  expect(exists("a", { allowOneLetterWords: true })).toBe(true);
+});
+
 test("Expect it will throw an error if a non-string primitive is inputted", () => {
   const testError = (param: any): void => {
     try {

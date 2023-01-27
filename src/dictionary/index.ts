@@ -1,7 +1,7 @@
 let defaultLanguage: string = "en";
-let currentLanguage: string = defaultLanguage;
-
 const allowedLanguages: string[] = [defaultLanguage];
+
+export let currentLanguage: string = defaultLanguage;
 
 export interface IDictionary {
   [key: string]: string[];
@@ -11,7 +11,7 @@ export interface IDictionaries {
   [key: string]: IDictionary;
 }
 
-const dictionaries: IDictionaries = {
+export const dictionaries: IDictionaries = {
   [defaultLanguage]: require(`./${defaultLanguage}/${defaultLanguage}.json`),
 };
 
@@ -21,7 +21,7 @@ export const getDictionary = (): IDictionary => {
 
 export const setLanguage = (language: string): void => {
   if (typeof language !== "string") {
-    throw new Error("Language must be of type string.");
+    throw new TypeError("Language must be of type string.");
   }
 
   if (language.length !== 2) {
@@ -29,7 +29,7 @@ export const setLanguage = (language: string): void => {
   }
 
   if (!allowedLanguages.includes(language)) {
-    throw new Error(`Language '${language}' is not yet suppoted.`);
+    throw new Error(`Language '${language}' is not yet supported.`);
   }
 
   if (!dictionaries[language]) {
