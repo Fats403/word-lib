@@ -1,7 +1,7 @@
 # word-lib <!-- omit in toc -->
 
-> `word-lib` is a type-safe word library that can be used offline and is based off of [@Brandons42's](https://github.com/Brandons42) [word-exists](https://github.com/Brandons42/word-exists).
-> This was built with the intent of adding typesafety, making it easier to add new languages, and allowing for different ways to query for words in `js` or `ts` based applications.
+> `word-lib` is a lightweight offline English word helper with no external dependencies based off of [@Brandons42's](https://github.com/Brandons42) [word-exists](https://github.com/Brandons42/word-exists).
+> Its a tiny JS API for checking if a word exists and has the ability to generate a random word with options for a specified min/max length or a seed value for deterministic generations.
 >
 > `word-lib` is currently in production use on my game [Word Wurm](https://www.wordwurm.com/).
 
@@ -9,37 +9,41 @@
 
 - [Install](#install)
 - [Usage](#usage)
+  - [Imports](#imports)
   - [`exists`](#exists)
-    - [`word: string`](#word-string)
-    - [`options?: IOption`](#options-ioption)
-      - [`allowOneLetterWords: boolean`](#allowoneletterwords-boolean)
   - [`random`](#random)
-    - [`maxLength?: number`](#maxlength-number)
-  - [`setLanguage`](#setlanguage)
-    - [`languageCode: string`](#languagecode-string)
+- [API](#api)
 - [License](#license)
 - [Contribute](#contribute)
-  - [Adding a new language](#adding-a-new-language)
+  - [Data](#data)
 
 ## Install
 
 ```console
-$ npm install word-lib --save
-```
-
-or
-
-```console
-$ yarn add word-lib
+$ npm install word-lib
 ```
 
 ## Usage
 
 Check if a word exists -- white space is trimmed, compares against lower-case. Hyphenated compound words aren't counted as words.
 
-```ts
-import wordLib from "word-lib";
+### Imports
 
+```js
+// CommonJS
+const wordLib = require("word-lib");
+// or cherry-pick
+const { exists, random } = require("word-lib");
+```
+
+```js
+// ES Modules
+import wordLib, { exists, random } from "word-lib";
+```
+
+Examples
+
+```js
 wordLib.exists("word"); // true
 wordLib.exists("library"); // true
 wordLib.exists(" space "); // true
@@ -58,49 +62,65 @@ wordLib.exists("a", { allowOneLetterWords: true }); // true
 
 The word that is being checked to exist
 
-#### `options?: IOption`
+Options
 
-<details>
-  <summary><code>IOption</code></summary>
-  
-  ##### `allowOneLetterWords: boolean`
+```ts
+type ExistsOptions = {
+  allowOneLetterWords?: boolean; // default false
+};
+```
 
-If true, will treat `a` and `i` as one letter words. (defaults to `false`)
+Rules
 
-</details>
+- If `allowOneLetterWords` is true, `a` and `i` are treated as valid one-letter words
 
 ---
 
-Get a random word from the dictionary. Minimum 3 letters long.
+Get a random word from the dictionary.
 
-```ts
-import wordLib from "word-lib";
+```js
+const { random } = require("word-lib");
 
-wordLib.random(); // any possible word
-wordLib.random(5); // generate a random word with a max length of 5
+// Any possible word (min defaults to 3)
+random();
+
+// Constrain by lengths
+random({ maxLength: 5 });
+random({ minLength: 6, maxLength: 10 });
+
+// Seeded deterministic random
+random({ seed: 42 });
+random({ maxLength: 8, seed: "game-seed" });
 ```
 
 ### `random`
 
-#### `maxLength?: number`
+Returns a random word from the dictionary.
 
-Sets the max length of the random word that can be found
+Options
+
+```ts
+type RandomOptions = {
+  minLength?: number; // default 3
+  maxLength?: number; // optional upper bound
+  seed?: number | string; // deterministic RNG when provided
+};
+```
+
+Rules
+
+- If `minLength` is provided, it must be >= 3
+- If `maxLength` is provided, it must be >= 3
+- If both are provided, `maxLength` must be >= `minLength`
 
 ---
 
-Change current language, defaults to english (`en`). No other languages are currently supported.
+### API
 
-```ts
-import wordLib from "word-lib";
+This package exports two functions:
 
-wordLib.setLanguage("en"); // set current language to english
-```
-
-### `setLanguage`
-
-#### `languageCode: string`
-
-The language code the dictionary should be set to
+- `exists(word: string, options?: { allowOneLetterWords?: boolean }) => boolean`
+- `random(options?: { minLength?: number; maxLength?: number; seed?: number | string }) => string`
 
 ---
 
@@ -112,8 +132,8 @@ Licensed under
 
 ## Contribute
 
-Any PR's for improvements, missing words or other language support are always welcome.
+Any PR's for improvements or missing words are welcome.
 
-### Adding a new language
+### Data
 
-To add a new language create a new folder within the `/src/dictionary` directory as the name of the language in [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) format. Then add the language json file under that directory as `{languageCode}.json` and add the language code to the `allowedLanguages` to enable it. Look at the current [dictionary](https://github.com/Fats403/word-lib/tree/main/src/dictionary) example for reference.
+The English dictionary is grouped by two-letter prefixes for fast lookups.
